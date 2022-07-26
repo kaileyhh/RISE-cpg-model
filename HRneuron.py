@@ -57,6 +57,10 @@ class HRneuron:
         c.set_current(current)
         self.current = current
     
+    def set_a(self, a):
+        c.set_a(a)
+        self.a = a
+    
     def phi_x(self, x):
         return (-1 * self.a * x**3 + self.b * x**2)
     
