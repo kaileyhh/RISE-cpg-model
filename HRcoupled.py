@@ -14,7 +14,7 @@ c = constants()
 # r: modeling slow ion channel
 # usually s = 4 and xR = -8/5
 
-class HRneuron:
+class HRcoupled:
     def __init__(self, id):
         self.id = id
         # self.s = c.FIXED_S
@@ -37,6 +37,10 @@ class HRneuron:
         self.current = c.I
         self.scale = c.scale
 
+        self.rr = c.rr
+        self.v = c.v
+        self.K = c.K
+        self.G = c.G
 
         # self.I = current
         # self.x = np.zeros(c.ARR_SIZE)
@@ -49,10 +53,13 @@ class HRneuron:
         self.xarr = np.zeros(c.iterations)
         self.yarr = np.zeros(c.iterations)
         self.zarr = np.zeros(c.iterations)
+        self.warr = np.zeros(c.iterations)
 
         self.x = -1.6
         self.y = 4.0
         self.z = 2.75
+        self.w_0 = 1.6
+        self.w = 1.6
 
     def set_current(self, current):
         c.set_current(current)
@@ -75,7 +82,7 @@ class HRneuron:
         # self.x[time] = self.x[time-1] + (self.y[time-1] + self.phi_x(self.x[time-1]) - self.z[time-1] + self.I[time]) * self.dt 
     
     def calculate_y(self, time):
-        dy = self.c - (5 * self.x * self.x) - self.y
+        dy = self.c - (5 * self.x * self.x) - self.y - self.G * self.w
         self.y += self.scale * dy
         self.yarr[time] = self.y
         # self.y[time] = self.y[time-1] + (self.trident_x(self.x[time-1]) - self.y[time-1]) * self.dt
@@ -85,6 +92,11 @@ class HRneuron:
         self.z += self.scale * dz
         self.zarr[time] = self.z
         # self.z[time] = self.z[time-1] + (self.r * (self.s * (self.x[time-1] - self.xR) - self.z[time-1])) * self.dt
+    
+    def calculate_w(self, time):
+        dw = self.v * (self.rr * (self.y + self.w_0) - self.K * self.w)
+        self.w += self.scale * dw
+        self.warr[time] = self.w
 
-
-
+    
+    # insert formulas and things here

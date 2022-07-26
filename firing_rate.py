@@ -27,7 +27,7 @@ current_vec = np.zeros(c.iterations) + c.I
 #forward euler time :D
 
 # --------- VARYING I ---------
-"""
+
 firing_rate = np.zeros(50)
 
 for j in range(50):
@@ -50,7 +50,7 @@ plt.xlabel("Injected Current")
 plt.ylabel("Firing Rate (peaks / ms)")
 plt.title("Firing Rate Based on Current")
 plt.show()
-"""
+
 
 # --------- VARYING A ---------
 
@@ -75,7 +75,7 @@ plt.show()
 #         print(j*0.2)
 #     print("K ", k * 0.1)
 
-
+"""
 firing_rate = []
 a_list = [1.2, 1.4, 1.6, 1.8]
 color_list = ["red", "yellow", "green", "blue"]
@@ -105,3 +105,4 @@ plt.ylabel("Firing Rate (peaks / ms)")
 plt.title("Firing Rate Based on Current")
 leg = plt.legend()
 plt.show()
+"""

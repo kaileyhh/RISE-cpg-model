@@ -34,9 +34,14 @@ class constants:
         self.s = 4.0
         self.xR = -1.6
         self.scale = 0.001
-        self.ms = 1000
+        self.ms = 500
         self.iterations = self.ms * 1000
-        self.I = 1.0
+        self.I = 2.0
+
+        self.rr = 3
+        self.v = 0.0009
+        self.K = 0.95
+        self.G = 0.03
 
         self.DIP_HEIGHT = -0.1
         self.MIN_HEIGHT = -0.5
