@@ -55,13 +55,6 @@ elif (c.I < 3.2):
 else:
     fig.suptitle("Fast Spiking")
 
-# fig, axs = plt.subplots(3)
-# axs[0].plot(time_vec, neuron1.xarr)
-# axs[0].title.set_text('Membrane Potential')
-# axs[1].plot(time_vec, neuron1.yarr)
-# axs[1].title.set_text('Ion Transport Rate')
-# axs[2].plot(time_vec, neuron1.zarr)
-# axs[2].title.set_text('Adaptation Current')
 
 plt.subplots_adjust(left=0.1,
                     bottom=0.1, 

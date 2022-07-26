@@ -2,6 +2,10 @@ import numpy as np
 from numpy import random
 import matplotlib.pyplot as plt
 
+import scipy
+from scipy.io.wavfile import read
+from scipy.signal import find_peaks
+
 class constants:
     def __init__(self):
         self.EXAMPLE_CONSTANT = 0
@@ -30,6 +34,14 @@ class constants:
         self.s = 4.0
         self.xR = -1.6
         self.scale = 0.001
-        self.ms = 200
+        self.ms = 1000
         self.iterations = self.ms * 1000
-        self.I = 5
+        self.I = 2.0
+
+        self.DIP_HEIGHT = -0.1
+        self.MIN_HEIGHT = 1
+        self.MIN_DISTANCE = 10
+        self.MIN_WIDTH = 1
+
+    def set_current(self, current):
+        self.I = current
