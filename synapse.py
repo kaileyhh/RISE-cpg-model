@@ -9,7 +9,7 @@ class synapse:
         # self.weights = [[0 for i in len(neurons)] for j in len(neurons)]
         self.neuron1 = self.neurons[0]
         self.neuron2 = self.neurons[1]
-        self.neuron1.set_current(4.5)
+        self.neuron1.set_current(2.5)
 
         self.sigmoid1 = 0.0
         self.sigmoid2 = 0.0
@@ -99,5 +99,17 @@ class synapse:
 
         # plt.savefig("coupled_neurons_bursting.png", dpi=300)
         plt.show()
+    
+    def get_neuron1x(self):
+        return self.neuron1.xarr
+    
+    def get_neuron2x(self):
+        return self.neuron2.xarr
+    
+    def get_neuron1y(self):
+        return self.neuron1.yarr
+    
+    def get_neuron2y(self):
+        return self.neuron2.yarr
     
     # insert functions here

@@ -26,7 +26,7 @@ class constants:
         self.ms = 500
         self.iterations = self.ms * 1000
 
-        self.I = 4.0
+        self.I = 2.0
 
         self.rr = 3
         self.v = 0.0009
