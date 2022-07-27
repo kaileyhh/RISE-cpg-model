@@ -9,7 +9,8 @@ class synapse:
         # self.weights = [[0 for i in len(neurons)] for j in len(neurons)]
         self.neuron1 = self.neurons[0]
         self.neuron2 = self.neurons[1]
-        self.neuron1.set_current(2.5)
+        # self.neuron1.set_x(-1)
+        self.neuron1.set_current(2.0)
 
         self.sigmoid1 = 0.0
         self.sigmoid2 = 0.0
@@ -65,9 +66,9 @@ class synapse:
         ax1 = fig.add_subplot(221)
         ax2 = fig.add_subplot(222)
         ax3 = fig.add_subplot(223)
-        # ax4 = fig.add_subplot(224)
+        ax4 = fig.add_subplot(224)
 
-        fig.suptitle("Coupled Inhibitory HR Neurons, Fast Spiking")
+        fig.suptitle("Coupled Inhibitory HR Neurons, Fast Spiking & Bursting")
         
         ax1.plot(self.neuron1.time_vec, self.neuron1.xarr, linewidth=0.5, color="red")
         
@@ -75,20 +76,20 @@ class synapse:
         ax3.plot(self.neuron1.time_vec, self.neuron1.xarr, linewidth=0.5, color="red")
         ax3.plot(self.neuron2.time_vec, self.neuron2.xarr, linewidth=0.5, color="green")
         # ax3.plot(self.neuron1.time_vec, self.neuron1.yarr, linewidth=0.5)
-        # ax4.plot(self.neuron1.time_vec, self.neuron1.zarr, linewidth=0.5)
+        ax4.plot(self.neuron1.time_vec, self.neuron1.parr, linewidth=0.5)
 
-        ax1.title.set_text("Neuron 1 (I = 4.5)")
+        ax1.title.set_text("Neuron 1 (I = " + str(self.neuron1.current) + " ), x0 = " + str(self.neuron1.xR))
         ax1.set_xlabel("time (ms)")
         ax1.set_ylabel("au")
-        ax2.title.set_text("Neuron 2 (I = 4.0)")
+        ax2.title.set_text("Neuron 2 (I = " + str(self.neuron2.current) + " ), x0 = " + str(self.neuron2.xR))
         ax2.set_xlabel("time (ms)")
         ax2.set_ylabel("au")
         ax3.title.set_text("Both")
         ax3.set_xlabel("time (ms)")
         ax3.set_ylabel("au")
-        # ax4.title.set_text("p1")
-        # ax4.set_xlabel("time (ms)")
-        # ax4.set_ylabel("au")
+        ax4.title.set_text("phi, difference in current")
+        ax4.set_xlabel("time (ms)")
+        ax4.set_ylabel("au")
 
         plt.subplots_adjust(left=0.1,
                     bottom=0.1, 
@@ -98,6 +99,8 @@ class synapse:
                     hspace=0.4)
 
         # plt.savefig("coupled_neurons_bursting.png", dpi=300)
+        plt.savefig("coupled_fast_spiking.png", dpi=300)
+
         plt.show()
     
     def get_neuron1x(self):
