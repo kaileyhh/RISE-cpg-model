@@ -1,3 +1,8 @@
+#this doesn't work. it's supposed to detect when it crosses the threshold 
+#but it might mark changes multiple times within the bounds of the threshold. but if == threshold, it will miss because 
+# the frequency will never be exactly -1.05 or whatever we set the threshold to
+#purpose - count groups of peaks as one for frequency of bursts
+
 from imports import *
 from HRneuron import *
 
