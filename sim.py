@@ -29,10 +29,6 @@ print(neuron1.get_connections())
 for i in range(c.iterations):
     synapse.calculate_all(i)
 
-x1 = neuron1.xarr
-x2 = neuron2.xarr
-y1 = neuron1.yarr
-y2 = neuron2.yarr
 
 fig = plt.figure()
 ax1 = fig.add_subplot(221)
