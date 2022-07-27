@@ -25,6 +25,7 @@ class constants:
         self.scale = 0.001
         self.ms = 500
         self.iterations = self.ms * 1000
+
         self.I = 4.0
 
         self.rr = 3
@@ -35,6 +36,7 @@ class constants:
         self.DIP_HEIGHT = -0.1
         self.MIN_HEIGHT = -0.5
         self.MIN_DISTANCE = 5000
+        self.ISI_DISTANCE = 100000
         self.MIN_WIDTH = 1
 
     def set_current(self, current):
