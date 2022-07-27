@@ -31,7 +31,7 @@ class HRcoupled:
         self.z = 2.75
         self.phi = 0.0
         self.v_syn = -2.0
-        self.g = 0.1
+        self.g = 0.5
 
         self.time_vec = np.arange(0, c.ms, c.scale)
 

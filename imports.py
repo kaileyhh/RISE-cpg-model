@@ -23,9 +23,9 @@ class constants:
         self.s = 4.0
         self.xR = -1.6
         self.scale = 0.001
-        self.ms = 1000
+        self.ms = 500
         self.iterations = self.ms * 1000
-        self.I = 5.0
+        self.I = 4.0
 
         self.rr = 3
         self.v = 0.0009
