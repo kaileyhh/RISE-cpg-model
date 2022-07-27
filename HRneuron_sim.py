@@ -55,6 +55,8 @@ elif (c.I < 3.2):
 else:
     fig.suptitle("Fast Spiking")
 
+# np.savetxt('data.csv', neuron1.xarr, delimiter=',', fmt='%f')
+
 
 plt.subplots_adjust(left=0.1,
                     bottom=0.1, 

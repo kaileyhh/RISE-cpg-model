@@ -14,29 +14,18 @@ class constants:
 
         self.ARR_SIZE = int(self.OVERALL_TIME / self.TIME_INCREMENT)
 
-        # HR NEURON, from wikipedia :>
-
-        # self.FIXED_S = 4.0
-        # self.FIXED_XR = -8/5
-        # self.FIXED_A = 1.0
-        # self.FIXED_B = 3.0
-        # self.FIXED_C = 1.0
-        # self.FIXED_D = 5.0
-        # self.FIXED_R = 10e-3
-
-        
         # source: https://jamesmccaffrey.wordpress.com/2020/01/27/hindmarsh-rose-model-simulation-using-c-or-python/
         self.a = 1.0
         self.b = 3.0
         self.c = 1.0
         self.d = 5.0
-        self.r = 0.005
+        self.r = 0.006
         self.s = 4.0
         self.xR = -1.6
         self.scale = 0.001
-        self.ms = 500
+        self.ms = 1000
         self.iterations = self.ms * 1000
-        self.I = 2.0
+        self.I = 5.0
 
         self.rr = 3
         self.v = 0.0009
