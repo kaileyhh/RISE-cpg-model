@@ -39,6 +39,13 @@ class constants:
         self.ISI_DISTANCE = 100000
         self.MIN_WIDTH = 1
 
+        self.alpha = 4.0
+        self.beta = 5.0
+
+        self.phi = 0.0
+        self.v_syn = -2.0
+        self.g = 10.0
+
     def set_current(self, current):
         self.I = current
     

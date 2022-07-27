@@ -10,7 +10,7 @@ class synapse:
         self.neuron1 = self.neurons[0]
         self.neuron2 = self.neurons[1]
         # self.neuron1.set_x(-1)
-        self.neuron1.set_current(2.0)
+        self.neuron1.set_current(3.18)
 
         self.sigmoid1 = 0.0
         self.sigmoid2 = 0.0
@@ -76,7 +76,7 @@ class synapse:
         ax3.plot(self.neuron1.time_vec, self.neuron1.xarr, linewidth=0.5, color="red")
         ax3.plot(self.neuron2.time_vec, self.neuron2.xarr, linewidth=0.5, color="green")
         # ax3.plot(self.neuron1.time_vec, self.neuron1.yarr, linewidth=0.5)
-        ax4.plot(self.neuron1.time_vec, self.neuron1.parr, linewidth=0.5)
+        ax4.plot(self.neuron1.time_vec, self.neuron1.sigmoidarr, linewidth=0.5)
 
         ax1.title.set_text("Neuron 1 (I = " + str(self.neuron1.current) + " ), x0 = " + str(self.neuron1.xR))
         ax1.set_xlabel("time (ms)")
