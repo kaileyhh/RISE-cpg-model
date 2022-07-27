@@ -18,6 +18,9 @@ synapse.attach_neurons(neuron1, neuron2)
 synapse.attach_neurons(neuron2, neuron1)
 synapse.attach_neurons(neuron1, neuron3)
 synapse.attach_neurons(neuron3, neuron1)
+# synapse.attach_neurons(neuron2, neuron3)
+# synapse.attach_neurons(neuron3, neuron2)
+
 
 print(synapse.neuron_dict)
 print(synapse.get_neuron(3))
@@ -37,16 +40,16 @@ ax2 = fig.add_subplot(222)
 ax3 = fig.add_subplot(223)
 ax4 = fig.add_subplot(224)
 
-fig.suptitle("Coupled Inhibitory HR Neurons, Fast Spiking & Bursting")
+fig.suptitle("3-way Coupled Inhibitory HR Neurons (1 & 2), (1 & 3)")
         
 ax1.plot(neuron1.time_vec, neuron1.xarr, linewidth=0.5, color="red")
 
 ax2.plot(neuron1.time_vec, neuron2.xarr, linewidth=0.5, color="green")
 ax3.plot(neuron1.time_vec, neuron1.xarr, linewidth=0.5, color="red")
 ax3.plot(neuron2.time_vec, neuron2.xarr, linewidth=0.5, color="green")
-ax3.plot(neuron2.time_vec, neuron3.xarr, linewidth=0.5, color="green")
+ax3.plot(neuron2.time_vec, neuron3.xarr, linewidth=0.5, color="blue")
 # ax3.plot(self.neuron1.time_vec, self.neuron1.yarr, linewidth=0.5)
-ax4.plot(neuron1.time_vec, neuron3.xarr, linewidth=0.5)
+ax4.plot(neuron1.time_vec, neuron3.xarr, linewidth=0.5, color="blue")
 
 ax1.title.set_text("Neuron 1 (I = " + str(neuron1.current) + " ), x0 = " + str(neuron1.xR))
 ax1.set_xlabel("time (ms)")
