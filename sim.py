@@ -20,9 +20,9 @@ synapse.attach_neurons(neuron2, neuron1)
 # synapse.attach_neurons(neuron2, neuron3)
 # synapse.attach_neurons(neuron3, neuron2)
 
-for j in range(50):
-    for i in range(c.iterations):
-        synapse.calculate_all(i)
+
+for i in range(c.iterations):
+    synapse.calculate_all(i)
 
 
 fig = plt.figure()
