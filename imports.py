@@ -30,11 +30,11 @@ class constants:
         self.b = 3.0
         self.c = 1.0
         self.d = 5.0
-        self.r = 0.005
+        self.r = 0.006
         self.s = 4.0
         self.xR = -1.6
         self.scale = 0.001
-        self.ms = 500
+        self.ms = 300
         self.iterations = self.ms * 1000
         self.I = 3.2
 

@@ -30,8 +30,8 @@ current_vec = np.zeros(c.iterations) + c.I
 
 firing_rate = []
 interspike_interval = []
-for j in range(200, 400):
-    neuron1.set_current(j * 0.01)
+for j in range(3000, 3300):
+    neuron1.set_current(j * 0.001)
     for i in range(c.iterations):
         neuron1.calculate_x(i)
         neuron1.calculate_y(i)
@@ -45,13 +45,14 @@ for j in range(200, 400):
         interspike_interval.append(c.ms/ len(peaks))
     else:
         interspike_interval.append(0) 
-    print(j*0.01)
+    print(j*0.001)
 
-firing_vec = np.arange(2, 4, 0.01)
+firing_vec = np.arange(3, 3.3, 0.001)
 
 #plt.plot(firing_vec, firing_rate)
 
-plt.scatter(firing_vec, interspike_interval)
+plt.scatter(firing_vec, interspike_interval,s=10)
+#plt.savefig(")
 plt.xlabel("Injected Current")
 plt.ylabel("Firing Rate (peaks / ms)")
 plt.title("Firing Rate Based on Current")
