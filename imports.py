@@ -26,12 +26,7 @@ class constants:
         self.ms = 500
         self.iterations = self.ms * 1000
 
-        self.I = 4.0
-
-        self.rr = 3
-        self.v = 0.0009
-        self.K = 0.95
-        self.G = 0.03
+        self.I = 2.0
 
         self.DIP_HEIGHT = -0.1
         self.MIN_HEIGHT = -0.5
@@ -44,10 +39,13 @@ class constants:
 
         self.phi = 0.0
         self.v_syn = -2.0
-        self.g = 10.0
+        self.g = 5.0 #coupling strength
 
     def set_current(self, current):
         self.I = current
     
     def set_a(self, a):
         self.a = a
+    
+    def set_conductance(self, conductance):
+        self.g = conductance

@@ -49,6 +49,10 @@ class HRneuronseg:
     def set_current(self, current):
         c.set_current(current)
         self.current = current
+
+    def set_conductance(self, conductance):
+        c.set_conductance(conductance)
+        self.g = conductance
     
     def set_a(self, a):
         c.set_a(a)
