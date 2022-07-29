@@ -45,10 +45,13 @@ for j in range(50):
 
 firing_vec = np.arange(0, 5, 0.1)
 
-plt.plot(firing_vec, firing_rate)
+# np.save("firing_rate.npy", firing_rate)
+
+plt.plot(firing_vec, firing_rate, linewidth = 1, color="black")
 plt.xlabel("Injected Current")
 plt.ylabel("Firing Rate (peaks / ms)")
 plt.title("Firing Rate Based on Current")
+plt.savefig("firing_rate_owo.png", dpi=300)
 plt.show()
 
 
