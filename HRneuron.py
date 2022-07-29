@@ -49,9 +49,19 @@ class HRneuron:
     
     def trident_x(self, x):
         return (self.c - self.d * x**2)
-
-    def calculate_x(self, time, I):
+    
+    def calculate_x_sensory(self, time, gain, sensory):
+        dx = self.y + (self.b * self.x * self.x) - (self.a * self.x * self.x * self.x) - self.z + self.current + gain * sensory
+        self.x += self.scale * dx
+        self.xarr[time] = self.x
+    
+    def calculate_x2(self, time, I):
         dx = self.y + (self.b * self.x * self.x) - (self.a * self.x * self.x * self.x) - self.z + I
+        self.x += self.scale * dx
+        self.xarr[time] = self.x
+
+    def calculate_x(self, time):
+        dx = self.y + (self.b * self.x * self.x) - (self.a * self.x * self.x * self.x) - self.z + self.current
         self.x += self.scale * dx
         self.xarr[time] = self.x
         # self.x[time] = self.x[time-1] + (self.y[time-1] + self.phi_x(self.x[time-1]) - self.z[time-1] + self.I[time]) * self.dt 

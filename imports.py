@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import scipy
 from scipy.io.wavfile import read
 from scipy.signal import find_peaks
+import imageio
 
 class constants:
     def __init__(self):
@@ -23,15 +24,15 @@ class constants:
         self.s = 4.0
         self.xR = -1.6
         self.scale = 0.001 #scale is the same thing as dt
-        self.ms = 1000
+        self.ms = 700
         self.iterations = self.ms * 1000
 
-        self.I = 3.15
+        self.I = 1.4
 
         self.DIP_HEIGHT = -0.1
-        self.MIN_HEIGHT = -0.5
+        self.MIN_HEIGHT = 1.0
         self.MIN_DISTANCE = 5000
-        self.ISI_DISTANCE = 100000
+        self.ISI_DISTANCE = 70000
         self.MIN_WIDTH = 1
 
         self.alpha = 4.0

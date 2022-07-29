@@ -71,6 +71,9 @@ class HRneuronseg:
     def calculate_init_dx(self):
         return (self.y + (self.b * self.x * self.x) - (self.a * self.x * self.x * self.x) - self.z + self.current)
     
+    def calculate_sensory_dx(self, gain, sensory):
+        return (self.y + (self.b * self.x * self.x) - (self.a * self.x * self.x * self.x) - self.z + self.current + gain * sensory)
+
     def calculate_y(self, time):
         dy = self.c - (5 * self.x * self.x) - self.y
         self.y += self.scale * dy
