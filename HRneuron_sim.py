@@ -16,7 +16,7 @@ current_vec = np.zeros(c.iterations) + c.I
 #forward euler time :D
 
 for i in range(c.iterations):
-    neuron1.calculate_x(i)
+    neuron1.calculate_x(i,4.2)
     neuron1.calculate_y(i)
     neuron1.calculate_z(i)
 

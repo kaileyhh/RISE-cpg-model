@@ -1,56 +1,44 @@
+#from sniffio import current_async_library
 from imports import *
 from HRneuron import *
 
 c = constants()
+neuron1 = HRneuron(1)
 
-neuron1 = HRneuron(1) 
-time_vec = np.arange(0, c.ms, c.scale)
-current_vec = np.zeros(c.iterations) + c.I
-# print(time_vec[20])
+currents = np.arange(0,4.0,0.002)
 
-# neuron1.set_current(1.5)
-# neuron1.set_a(1.0)
+# y = []
+# for current in currents:
+#     timeintervals = []
 
-# for i in range(c.iterations):
-#     neuron1.calculate_x(i)
-#     neuron1.calculate_y(i)
-#     neuron1.calculate_z(i)
+#     for j in range(c.iterations):
+#         neuron1.calculate_x(j,current)
+#         neuron1.calculate_y(j)
+#         neuron1.calculate_z(j)
+#     print("done with ",current)
 
-# pot = neuron1.xarr
+#     pot = neuron1.xarr
 
-# peaks, other = find_peaks(pot, height=c.MIN_HEIGHT, threshold = 0, distance=c.ISI_DISTANCE, width=c.MIN_WIDTH)
+#     peaks, other = find_peaks(pot, height=c.MIN_HEIGHT, threshold = 0, distance=c.MIN_DISTANCE, width=c.MIN_WIDTH)
+#     for k in range(len(peaks)-1):
+#         time = (peaks[k+1]-peaks[k]) * c.scale
+#         timeintervals.append(time)
+    
 
-# plt.plot(pot)
-# plt.plot(peaks, pot[peaks], "x")
-# plt.show()
+#     y.append(timeintervals)
 
-#forward euler time :D
+# np.save("y.npy", y)
 
-# --------- VARYING I ---------
+y = np.load("y.npy", allow_pickle=True)
 
-firing_rate = []
+for l in range(len(currents)):
+    for m in range(len(y[l])):
+        plt.scatter(currents[l],y[l][m], s = 0.5, color = 'black')
 
-for j in range(50):
-    neuron1.set_current(j * 0.1)
-    for i in range(c.iterations):
-        neuron1.calculate_x(i)
-        neuron1.calculate_y(i)
-        neuron1.calculate_z(i)
-
-    pot = neuron1.xarr
-
-    peaks, other = find_peaks(pot, height=c.MIN_HEIGHT, threshold = 0, distance=c.MIN_DISTANCE, width=c.MIN_WIDTH)
-    if (len(peaks) != 0):
-        firing_rate.append((c.ms)/len(peaks))
-    else:
-        firing_rate.append(0)
-    print(j*0.1)
-
-firing_vec = np.arange(0, 5, 0.1)
-
-plt.scatter(firing_vec, firing_rate, s=10)
-plt.xlabel("Injected Current")
-plt.ylabel("Firing Rate (peaks / ms)")
-plt.title("Firing Rate Based on Current")
+plt.title("Bifurcation Diagram - HR Neuron")
+plt.ylabel("ISI")
+plt.xlabel("I (a.u.)")
+plt.savefig("Bifurcation_clear.png", dpi=300)
 plt.show()
+#print(y)
 

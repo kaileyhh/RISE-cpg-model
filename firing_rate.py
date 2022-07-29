@@ -28,10 +28,10 @@ current_vec = np.zeros(c.iterations) + c.I
 
 # --------- VARYING I ---------
 
-firing_rate = np.zeros(50)
-
-for j in range(50):
-    neuron1.set_current(j * 0.1)
+firing_rate = []
+interspike_interval = []
+for j in range(3000, 3300):
+    neuron1.set_current(j * 0.001)
     for i in range(c.iterations):
         neuron1.calculate_x(i)
         neuron1.calculate_y(i)
@@ -40,10 +40,16 @@ for j in range(50):
     pot = neuron1.xarr
 
     peaks, other = find_peaks(pot, height=c.MIN_HEIGHT, threshold = 0, distance=c.MIN_DISTANCE, width=c.MIN_WIDTH)
-    firing_rate[j] = len(peaks) / (c.ms)
-    print(j*0.1)
+    firing_rate.append(len(peaks) / (c.ms))
+    if len(peaks) != 0:
+        interspike_interval.append(c.ms/ len(peaks))
+    else:
+        interspike_interval.append(0) 
+    print(j*0.001)
 
-firing_vec = np.arange(0, 5, 0.1)
+firing_vec = np.arange(3, 3.3, 0.001)
+
+#plt.plot(firing_vec, firing_rate)
 
 # np.save("firing_rate.npy", firing_rate)
 
