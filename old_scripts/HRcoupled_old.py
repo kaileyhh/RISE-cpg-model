@@ -17,16 +17,6 @@ c = constants()
 class HRcoupled:
     def __init__(self, id):
         self.id = id
-        # self.s = c.FIXED_S
-        # self.xR = c.FIXED_XR
-        # self.dt = c.TIME_INCREMENT
-
-        # self.a = c.FIXED_A
-        # self.b = c.FIXED_B
-        # self.c = c.FIXED_C
-        # self.d = c.FIXED_D
-        # self.r = c.FIXED_R
-
         self.a = c.a
         self.b = c.b
         self.c = c.c
@@ -42,14 +32,6 @@ class HRcoupled:
         self.K = c.K
         self.G = c.G
 
-        # self.I = current
-        # self.x = np.zeros(c.ARR_SIZE)
-        # self.x[0] = -1.6
-        # self.y = np.zeros(c.ARR_SIZE)
-        # self.y[0] = 4.0
-        # self.z = np.zeros(c.ARR_SIZE)
-        # self.z[0] = 2.75
-
         self.xarr = np.zeros(c.iterations)
         self.yarr = np.zeros(c.iterations)
         self.zarr = np.zeros(c.iterations)
@@ -59,7 +41,7 @@ class HRcoupled:
         self.y = 4.0
         self.z = 2.75
         self.w_0 = 1.6
-        self.w = 1.6
+        self.w = self.w_0
 
     def set_current(self, current):
         c.set_current(current)
@@ -79,19 +61,17 @@ class HRcoupled:
         dx = self.y + (self.b * self.x * self.x) - (self.a * self.x * self.x * self.x) - self.z + self.current
         self.x += self.scale * dx
         self.xarr[time] = self.x
-        # self.x[time] = self.x[time-1] + (self.y[time-1] + self.phi_x(self.x[time-1]) - self.z[time-1] + self.I[time]) * self.dt 
     
     def calculate_y(self, time):
-        dy = self.c - (5 * self.x * self.x) - self.y - self.G * self.w
+        dy = self.c - (5 * self.x * self.x) - self.y
+        dy = dy - self.G * self.w
         self.y += self.scale * dy
         self.yarr[time] = self.y
-        # self.y[time] = self.y[time-1] + (self.trident_x(self.x[time-1]) - self.y[time-1]) * self.dt
     
     def calculate_z(self, time):
         dz = self.r * (self.s * (self.x - self.xR) - self.z)
         self.z += self.scale * dz
         self.zarr[time] = self.z
-        # self.z[time] = self.z[time-1] + (self.r * (self.s * (self.x[time-1] - self.xR) - self.z[time-1])) * self.dt
     
     def calculate_w(self, time):
         dw = self.v * (self.rr * (self.y + self.w_0) - self.K * self.w)

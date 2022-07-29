@@ -1,6 +1,6 @@
 from imports import *
 from HRneuron import *
-from synapse import *
+# from synapse import *
 
 # insert main code here :D
 
@@ -54,6 +54,8 @@ elif (c.I < 3.2):
     fig.suptitle("Aperiodic")
 else:
     fig.suptitle("Fast Spiking")
+
+# np.savetxt('data.csv', neuron1.xarr, delimiter=',', fmt='%f')
 
 
 plt.subplots_adjust(left=0.1,

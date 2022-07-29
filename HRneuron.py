@@ -17,15 +17,6 @@ c = constants()
 class HRneuron:
     def __init__(self, id):
         self.id = id
-        # self.s = c.FIXED_S
-        # self.xR = c.FIXED_XR
-        # self.dt = c.TIME_INCREMENT
-
-        # self.a = c.FIXED_A
-        # self.b = c.FIXED_B
-        # self.c = c.FIXED_C
-        # self.d = c.FIXED_D
-        # self.r = c.FIXED_R
 
         self.a = c.a
         self.b = c.b
@@ -36,15 +27,6 @@ class HRneuron:
         self.xR = c.xR
         self.current = c.I
         self.scale = c.scale
-
-
-        # self.I = current
-        # self.x = np.zeros(c.ARR_SIZE)
-        # self.x[0] = -1.6
-        # self.y = np.zeros(c.ARR_SIZE)
-        # self.y[0] = 4.0
-        # self.z = np.zeros(c.ARR_SIZE)
-        # self.z[0] = 2.75
 
         self.xarr = np.zeros(c.iterations)
         self.yarr = np.zeros(c.iterations)
