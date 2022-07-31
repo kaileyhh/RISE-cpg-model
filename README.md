@@ -1,4 +1,4 @@
-## RISE Group K: 
+## RISE Group K: Exploring Nonlinear Dynamics of the Mammalian Respiratory Central Pattern Generator Using the Hindmarsh-Rose Neuron Model
 
 ### Repository Structure
 The main files implementing the Hindmarsh-Rose (HR) Neuron Model are ``HRneuron.py`` and ``HRneuronseg.py`` and ``synapseseg.py`` for creating modular networks of HR neurons. 
