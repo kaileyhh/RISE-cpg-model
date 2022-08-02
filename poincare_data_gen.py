@@ -43,7 +43,7 @@ average_y3 = []
 time_vec = np.arange(0, c.ms, c.scale)
 
 a = []
-
+"""
 for j in range(400):
     neuron1.set_current(j * 0.01 + 1)
     print(neuron1.current)
@@ -66,10 +66,20 @@ for j in range(400):
     # plt.plot(time_vec, neuron1.xarr)
     # plt.show()
     print(float(j/400))
+"""
 
+neuron1.set_current(3.15)
+print(neuron1.current)
+# neuron2.set_current(j * 0.1 + 1)
+# neuron3.set_conductance(j * 0.1)
+# print(neuron1.g)
+for i in range(c.iterations):
+    neuron1.calculate_x(i)
+    neuron1.calculate_y(i)
+    neuron1.calculate_z(i)
 # np.save("1.npy", np.asarray(average_y1))
 # np.save("2.npy", np.asarray(average_y2))
-np.save("full.npy", np.asarray(a))
+# np.save("full.npy", np.asarray(a))
 # np.save("3.npy", average_y3)
 
 
@@ -101,15 +111,22 @@ np.save("full.npy", np.asarray(a))
 #     plt.scatter(temp_vec, average_y1[i], s=0.5, color="black")
 
 
-# plt.plot(temp_vec, average_y1, linewidth=0.5, color="red", label = "neuron 1")
+temp = np.zeros(c.iterations)
+temp -= 2.5
+
+plt.plot(neuron1.xarr[100000:], neuron1.yarr[100000:], linewidth=0.5, color="black")
+# plt.plot(temp[100000:], linewidth=0.5, color=c.l_blue)
+plt.axhline(y = -2.5, linewidth = 0.5, color = c.l_blue, label="y = -2.5")
 # plt.plot(temp_vec, average_y2, linewidth=0.5, color="green", label = "neuron 2")
 # plt.plot(temp_vec, average_y3, linewidth=0.5, color="blue", label = "neuron 2")
 # plt.legend()
+plt.legend()
+plt.title("Phase Portrait of I = 3.15 (Poincare section at y = −2.5)")
 
-plt.title("Bifurcation of Membrane Potential (Poincare section at y = −2.5)")
+# plt.title("Bifurcation of Membrane Potential (Poincare section at y = −2.5)")
 
-plt.ylabel("membrane potential")
-plt.xlabel("conductance")
+plt.ylabel("conductance")
+plt.xlabel("membrane potential")
 
 plt.savefig("x_vs_conductance", dpi=300)
 print("HI")
