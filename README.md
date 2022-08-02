@@ -1,24 +1,18 @@
-# rise-project
+## RISE Group K: Exploring Nonlinear Dynamics of the Mammalian Respiratory Central Pattern Generator Using the Hindmarsh-Rose Neuron Model
 
-### Direction / Purpose
-Explore chaos or bifurcations
+### Repository Structure
+The main files implementing the Hindmarsh-Rose (HR) Neuron Model are ``HRneuron.py`` and ``HRneuronseg.py`` and ``synapseseg.py`` for creating modular networks of HR neurons. 
 
-Implications - 2 modalities / states in which the system can exist
+The file ``HRneuron_sim.py`` implements the base HRneuron model to simulate the effect of a neuron under changes in injected current and stimulation, and produce matplotlib figures. 
 
-#### Specific Steps:
+``sim.py`` is the general simulation file for the modular HR neuron system. 
 
-Model the chaotic behavior in a hindmarsh-rose neuron: analyze phase-space, bifurcations, and firing rates
+The file ``firing_rate.py`` uses the HRneuron model and allows us to analyze the chaotic / aperiodic region. 
 
-Develop biologically inspired CPG circuits using the hindmarsh-rose neurons (inhibitory, excitatory, complex circuits)
+``bifurcation.py`` allows us to produce bifurcation graphs relating firing rate with ISIs (interspike intervals). 
 
-Model a biological mechanism by developing an original CPG circuit
+``poincare_data_gen.py`` creates poincare sections of the membrane potential-ion transport rate phase portrait in relevance to injected current. 
 
-### Inhibition Code Explanation :D
+``phase_change_plotting.py`` uses a `.npy` file generated using ``sim.py`` to plot the neuron's spiking phase change resulting from a 2ms stimulation.
 
-The ``HRneuronseg`` object is a modified HRneuron, and contains a list ``self.connections`` of the ids (``self.id``) of the neurons that it is *inhibited* by. It is possible for a neuron to be inhibited by another neuron but not inhibit it. 
-
-The ``add_connections()`` method allows us to add inhibitory neurons to the given ``HRneuronseg``. The rest of the functions are the normal Hindmarsh Rose functions, except for ``update_x()``, which takes is called by the ``synapseseg`` object in order to change the x to include inhibition from any connected neurons.
-
-``synapseseg`` is defined using a list of neurons that can be potentially connected to each other, and contains a dictionary ``self.neuron_dict`` of each neuron's id for easy referencing. ``add_neuron()`` adds a neuron to synapse. ``attach_neurons()`` connects 2 neurons, where the first parameter is being inhibited by the second. The only special Hindmarsh Rose function here is ``calculate_x()``, which loops through each neuron's connections to properly inhibit the initial calculated dx by the neuron object. The function ``calculate_all()`` is just called by the forward Euler loop in ``sim.py``.
-
-The simulation file just initiates all the objects, connects the neurons to each other, performs the forward Euler, and plots the resulting graph.
+All interesting result images can be viewed in ``/images``.
