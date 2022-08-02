@@ -30,7 +30,19 @@ max_bound = 225 * 1000
 # a = [np.zeros(max_bound-min_bound)]
 a = []
 
-for j in range (100*1000, 200*1000, 1000):
+for i in range(c.iterations):
+    neuron2.calculate_x(i)
+    neuron2.calculate_y(i)
+    neuron2.calculate_z(i)
+
+peaks2, other = find_peaks(neuron2.xarr, height=c.MIN_HEIGHT, threshold = 0, distance=c.MIN_DISTANCE, width=c.MIN_WIDTH)
+peaks2 = peaks2[np.where(peaks2 > 100000)]
+temp2 = peaks2[0]
+
+
+for j in range (124*1000, 125*1000, 1000):
+    neuron1 = HRneuron(1) 
+    # neuron2 = HRneuron(2)
     print(j)
     sensory_vec = np.zeros(c.iterations) 
     sensory_vec[j:j + 2 * 1000] = 1.0
@@ -38,9 +50,7 @@ for j in range (100*1000, 200*1000, 1000):
         neuron1.calculate_x_sensory(i, gain, sensory_vec[i])
         neuron1.calculate_y(i)
         neuron1.calculate_z(i)
-        neuron2.calculate_x(i)
-        neuron2.calculate_y(i)
-        neuron2.calculate_z(i)
+        
     # plt.figure()
     # plt.plot(neuron1.xarr)
     # plt.plot(neuron2.xarr, color="green")
@@ -49,13 +59,11 @@ for j in range (100*1000, 200*1000, 1000):
     # neuron2.xarr = neuron2.xarr[min_bound:max_bound]
     peaks1, other = find_peaks(neuron1.xarr, height=c.MIN_HEIGHT, threshold = 0, distance=c.MIN_DISTANCE, width=c.MIN_WIDTH)
 
-    peaks2, other = find_peaks(neuron2.xarr, height=c.MIN_HEIGHT, threshold = 0, distance=c.MIN_DISTANCE, width=c.MIN_WIDTH)
-
+    
     peaks1 = peaks1[np.where(peaks1 > j)]
-    peaks2 = peaks2[np.where(peaks2 > j)]
 
-    temp1 = peaks1[1]
-    temp2 = peaks2[1]
+    temp1 = peaks1[0]
+    
     # temp1 = np.where(neuron1.xarr>=1)
     # print(temp1)
     # # print(temp1)

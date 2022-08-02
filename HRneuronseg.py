@@ -34,10 +34,17 @@ class HRneuronseg:
         self.time_vec = np.arange(0, c.ms, c.scale)
 
         self.connections = []
+        self.weights = []
         self.sigmoid = 0.0
         self.sigmoidarr = np.zeros(c.iterations)
         self.k = 10.0
         self.syn = -0.25
+    
+    def set_k(self, k):
+        self.k = k
+    
+    def update_weights(self, weights):
+        self.weights = weights
     
     def get_connections(self):
         return self.connections
@@ -60,6 +67,12 @@ class HRneuronseg:
     
     def set_x(self, x):
         self.x = x
+    
+    
+    def max_sig_func(self, time):
+        self.sigmoid = c.clamp(self.x, 0, self.x)
+        # print(self.x, self.sigmoid)
+        self.sigmoidarr[time] = self.sigmoid
 
     def sig_func(self, time):
         self.sigmoid = 1 / (1 + np.exp(-self.k * (self.x - self.syn)))

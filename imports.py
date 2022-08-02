@@ -27,7 +27,7 @@ class constants:
         self.ms = 700
         self.iterations = self.ms * 1000
 
-        self.I = 1.4
+        self.I = 3.15
 
         self.DIP_HEIGHT = -0.1
         self.MIN_HEIGHT = 1.0
@@ -42,6 +42,9 @@ class constants:
         self.v_syn = -2.0
         self.g = 5.0 #coupling strength
 
+        self.l_blue = "#017079"
+        self.l_yellow = "#FFC303"
+
     def set_current(self, current):
         self.I = current
     
@@ -50,3 +53,10 @@ class constants:
     
     def set_conductance(self, conductance):
         self.g = conductance
+    
+    def clamp(self, input, min, max):
+        if (input < min):
+            return min
+        if (input < max):
+            return max
+        return input
