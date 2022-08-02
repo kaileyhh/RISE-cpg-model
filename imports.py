@@ -24,7 +24,7 @@ class constants:
         self.s = 4.0
         self.xR = -1.6
         self.scale = 0.001 #scale is the same thing as dt
-        self.ms = 700
+        self.ms = 1000
         self.iterations = self.ms * 1000
 
         self.I = 3.15

@@ -39,6 +39,9 @@ class HRneuronseg:
         self.sigmoidarr = np.zeros(c.iterations)
         self.k = 10.0
         self.syn = -0.25
+
+        self.garr = np.zeros(c.iterations)
+        self.garr[0] = self.g
     
     def set_k(self, k):
         self.k = k
@@ -52,6 +55,11 @@ class HRneuronseg:
     def add_connections(self, neuron):
         if neuron not in self.connections:
             self.connections.append(neuron)
+    
+    def update_g(self, time, dg):
+        self.g = self.g - dg
+        # print(self.g)
+        self.garr[time] = self.g
 
     def set_current(self, current):
         c.set_current(current)

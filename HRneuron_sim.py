@@ -45,7 +45,7 @@ for j in range (124*1000, 125*1000, 1000):
     # neuron2 = HRneuron(2)
     print(j)
     sensory_vec = np.zeros(c.iterations) 
-    sensory_vec[j:j + 2 * 1000] = 1.0
+    # sensory_vec[j:j + 2 * 1000] = 1.0
     for i in range(c.iterations):
         neuron1.calculate_x_sensory(i, gain, sensory_vec[i])
         neuron1.calculate_y(i)

@@ -89,3 +89,8 @@ class synapseseg:
             neuron.calculate_y(time)
             neuron.calculate_z(time)
             neuron.sig_func(time)
+    
+    def update_dg(self, time, const):
+        dg = const * np.abs(self.neurons[0].current - self.neurons[1].current)
+        for neuron in self.neurons:
+            neuron.update_g(time, dg)
