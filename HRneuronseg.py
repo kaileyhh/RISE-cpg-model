@@ -41,13 +41,19 @@ class HRneuronseg:
         self.syn = -0.25
 
         self.garr = np.zeros(c.iterations)
-        self.garr[0] = self.g
+        self.garr += self.g
+
+        self.tarr = np.zeros(c.iterations)
     
     def set_k(self, k):
         self.k = k
     
+    def update_tarr(self, time, t):
+        self.tarr[time] = t
+    
     def update_weights(self, weights):
         self.weights = weights
+        self.garr[0] = weights[0]
     
     def get_connections(self):
         return self.connections
@@ -58,6 +64,7 @@ class HRneuronseg:
     
     def update_g(self, time, dg):
         self.g = self.g - dg
+        self.weights[0] = self.weights[0] - dg
         # print(self.g)
         self.garr[time] = self.g
 

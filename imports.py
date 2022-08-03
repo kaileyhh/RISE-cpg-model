@@ -24,7 +24,7 @@ class constants:
         self.s = 4.0
         self.xR = -1.6
         self.scale = 0.001 #scale is the same thing as dt
-        self.ms = 500
+        self.ms = 1500
         self.iterations = self.ms * 1000
 
         self.I = 3.15
@@ -44,6 +44,8 @@ class constants:
 
         self.l_blue = "#017079"
         self.l_yellow = "#FFC303"
+
+        self.inhib = -1.0
 
     def set_current(self, current):
         self.I = current
