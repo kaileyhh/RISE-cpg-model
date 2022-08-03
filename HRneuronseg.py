@@ -41,7 +41,7 @@ class HRneuronseg:
         self.syn = -0.25
 
         self.garr = np.zeros(c.iterations)
-        self.garr[0] = self.g
+        self.garr[0:5001] = self.g
     
     def set_k(self, k):
         self.k = k
@@ -59,6 +59,8 @@ class HRneuronseg:
     def update_g(self, time, dg):
         self.g = self.g - dg
         # print(self.g)
+        self.garr[time] = self.g
+    def update_g_vector(self,time):
         self.garr[time] = self.g
 
     def set_current(self, current):

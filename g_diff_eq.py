@@ -7,20 +7,20 @@ from synapseseg import *
 neuron1 = HRneuronseg(1)
 neuron2 = HRneuronseg(2)
 
-neuron1.set_current(2.15)
-neuron2.set_current(2.1)
+neuron1.set_current(2.8)
+neuron2.set_current(1.7)
 
 synapse = synapseseg([neuron1, neuron2])
 
 synapse.attach_neurons(neuron1, neuron2)
 synapse.attach_neurons(neuron2, neuron1)
 
-const = 0.000005
+const = 0.00000005
 
 for i in range(c.iterations):
     synapse.calculate_all(i)
-    synapse.update_new_dg(i, const)
-    print(i)
+    if i > 5000:
+        synapse.update_new_dg(i, const)
 
 fig = plt.figure()
 ax1 = fig.add_subplot(221)

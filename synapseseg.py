@@ -1,3 +1,4 @@
+from threading import currentThread
 from imports import *
 from HRneuronseg import *
 
@@ -9,6 +10,8 @@ class synapseseg:
         self.neuron_dict = {}
         self.t1 = 0
         self.t2 = 0
+        self.current_t1 = None
+        self.current_t2 = None
 
         for neuron in self.neurons:
             self.neuron_dict.update({str(neuron.id): neuron})
@@ -98,16 +101,79 @@ class synapseseg:
             neuron.update_g(time, dg)
     
     def update_new_dg(self, time, const):
+
+        #update t1
+        prevt1 = self.t1
         if (self.neurons[0].x < -1.0):
-            self.t1+=1
+            self.t1 += 1
         else:
             self.t1 = 0
+
+        if (prevt1 > 0 and self.t1 ==0):
+            self.current_t1 = prevt1
+
+
+        #update t2
+        prevt2 = self.t2
         if (self.neurons[1].x < -1.0):
-            self.t2+=1
+            self.t2 += 1
         else:
             self.t2 = 0
-        dg = const * (np.abs(self.t1*c.scale - self.t2*c.scale) + self.neurons[0].r)
-        for neuron in self.neurons:
-            neuron.update_g(time, dg)
-        print (self.neurons[0].g)
+
+        if (prevt2 > 0 and self.t2 ==0):
+            self.current_t2 = prevt2
+        
+        if self.current_t1 != None and self.current_t2 != None:
+            dg = const * (np.abs(self.current_t1*c.scale - self.current_t2*c.scale))
+            for neuron in self.neurons:
+                neuron.update_g(time, dg)
+        else:
+            for neuron in self.neurons:
+                neuron.update_g_vector(time)
+        print(self.current_t1, self.current_t2)
+        #print (self.neurons[0].g)
+
+
+    # def update_new_dg(self, time, const):
+    #     flag1 = self.t1
+    #     flag2 = self.t2
+
+    #     if (self.neurons[0].x < -1.0):
+    #         self.t1+=1
+    #         flag1 = self.t1
+
+    #     else:
+
+    #         #update g properly
+    #         if (flag1 > 0):
+    #             dg = const * (np.abs(self.t1*c.scale - self.t2*c.scale) + self.neurons[0].r)
+    #         else:
+    #             dg = 0
+    #         for neuron in self.neurons:
+    #             neuron.update_g(time, dg)
+
+
+    #         self.t1 = 0
+    #         flag1 = self.t1
+
+        
+
+    #     if (self.neurons[1].x < -1.0):
+    #         self.t2+=1
+    #         flag2 = self.t2
+
+    #     else:
+    #         #update g properly
+    #         if (flag2 > 0):
+    #             dg = const * (np.abs(self.t1*c.scale - self.t2*c.scale) + self.neurons[0].r)
+    #         else:
+    #             dg = 0
+    #         for neuron in self.neurons:
+    #             neuron.update_g(time, dg)
+
+
+    #         self.t2 = 0
+    #         flag2 = self.t2
+            
+    #     print (self.neurons[0].g)
 
