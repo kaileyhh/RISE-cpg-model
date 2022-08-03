@@ -9,7 +9,7 @@ in_troop = False
 
 while x1 < -1:
     inLoop = True
-    T1 += 1
+    T1 += 1 
 
 
 
