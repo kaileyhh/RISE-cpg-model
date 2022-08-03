@@ -15,11 +15,11 @@ synapse = synapseseg([neuron1, neuron2])
 synapse.attach_neurons(neuron1, neuron2)
 synapse.attach_neurons(neuron2, neuron1)
 
-const = 0.0002
+const = 0.000005
 
 for i in range(c.iterations):
     synapse.calculate_all(i)
-    synapse.update_dg(i, const)
+    synapse.update_new_dg(i, const)
     print(i)
 
 fig = plt.figure()
@@ -49,7 +49,7 @@ ax4.set_xlabel("Time (ms)", fontsize=8)
 ax4.set_ylabel("Conductance (au)", fontsize=8)
 
 # plt.rc('figure', titlesize=8) 
-fig.suptitle("Coupled HR Neurons With Linear Conductance Decay, c = " + str(const))
+fig.suptitle("Coupled HR Neurons With Nonlinear Conductance Decay, c = " + str(const))
 
 plt.subplots_adjust(left=0.1,
                     bottom=0.1, 

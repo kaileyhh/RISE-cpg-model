@@ -7,6 +7,8 @@ class synapseseg:
     def __init__(self, neurons_list):
         self.neurons = neurons_list
         self.neuron_dict = {}
+        self.t1 = 0
+        self.t2 = 0
 
         for neuron in self.neurons:
             self.neuron_dict.update({str(neuron.id): neuron})
@@ -94,3 +96,18 @@ class synapseseg:
         dg = const * np.abs(self.neurons[0].current - self.neurons[1].current)
         for neuron in self.neurons:
             neuron.update_g(time, dg)
+    
+    def update_new_dg(self, time, const):
+        if (self.neurons[0].x < -1.0):
+            self.t1+=1
+        else:
+            self.t1 = 0
+        if (self.neurons[1].x < -1.0):
+            self.t2+=1
+        else:
+            self.t2 = 0
+        dg = const * (np.abs(self.t1*c.scale - self.t2*c.scale) + self.neurons[0].r)
+        for neuron in self.neurons:
+            neuron.update_g(time, dg)
+        print (self.neurons[0].g)
+
