@@ -35,9 +35,9 @@ for l in range(len(currents)):
     for m in range(len(y[l])):
         plt.scatter(currents[l],y[l][m], s = 0.5, color = 'black')
 
-plt.title("Bifurcation Diagram - HR Neuron")
-plt.ylabel("ISI")
-plt.xlabel("I (a.u.)")
+plt.title("Bifurcation of Interspike Intervals")
+plt.ylabel("interspike intervals")
+plt.xlabel("injected current")
 plt.savefig("Bifurcation_clear.png", dpi=300)
 plt.show()
 #print(y)
