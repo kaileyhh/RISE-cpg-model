@@ -13,6 +13,9 @@ class synapseseg:
         self.testarr = []
         self.testarr2 = []
 
+        self.warr = []
+        self.warr2 = []
+
         for neuron in self.neurons:
             self.neuron_dict.update({str(neuron.id): neuron})
     
@@ -111,40 +114,80 @@ class synapseseg:
         
         dg = 0
         #temp1[int(time/10000)] - temp1[int(time/10000)-1], temp1[int(time/10000)-1] - temp1[int(time/10000)-2], 
-        print(self.testarr)
-        print(self.testarr2)
-        if (time > 20000):
+        print(self.testarr, self.warr)
+        print(self.testarr2, self.warr2)
+        if (True):
             # if (temp1[int(time/10000)] - temp1[int(time/10000)-1] < 0):
             #     self.t1 +=10000
-            if ((temp1[int(time/10000)] - temp1[int(time/10000)-1] > 0 and temp1[int(time/10000)-1] - temp1[int(time/10000)-2] < 0)
-                or (temp1[int(time/10000)] - temp1[int(time/10000)-1] < 0 and temp1[int(time/10000)-1] - temp1[int(time/10000)-2] > 0)):
-                if ((self.neurons[0].zarr[time] - self.neurons[0].zarr[time-1] > 0 and self.neurons[0].zarr[time-1] - self.neurons[0].zarr[time-2] < 0)
-                    or (self.neurons[0].zarr[time] - self.neurons[0].zarr[time-1] < 0 and self.neurons[0].zarr[time-1] - self.neurons[0].zarr[time-2] > 0)):
-                    print("HI")
-                    if (len(self.testarr2) > 0 and self.t1 > 10000):
-                        dg = -1 * const * ((self.t1*c.scale - self.testarr2[-1]*c.scale) + self.neurons[0].r)
+            if ((temp1[int(time/10000)] - temp1[int(time/10000)-1] > 0 and temp1[int(time/10000)-1] - temp1[int(time/10000)-2] < 0)):
+                if ((self.neurons[0].zarr[time] - self.neurons[0].zarr[time-1] > 0 and self.neurons[0].zarr[time-1] - self.neurons[0].zarr[time-2] < 0)):
+                    # print("HI")
+                    if (self.t1 > 10000 and len(self.warr) > 0):
+                        # dg = -1 * const * ((self.t1*c.scale - self.testarr2[-1]*c.scale) + c.kappa)
+                        dg = -1 * const * ((self.t1*c.scale - (time - self.warr[-1]/c.scale - self.t1)*c.scale) + c.kappa)
+                        self.testarr2.append(time - self.warr[-1]/c.scale - self.t1)
                     if (self.t1 > 10000):
                         self.testarr.append(self.t1)
-                    self.t1 = 0
-                else:
-                    self.t1 += 1
-            else:
-                self.t1 += 1
 
-            if ((temp2[int(time/10000)] - temp2[int(time/10000)-1] > 0 and temp2[int(time/10000)-1] - temp2[int(time/10000)-2] < 0)
-                or (temp2[int(time/10000)] - temp2[int(time/10000)-1] < 0 and temp2[int(time/10000)-1] - temp2[int(time/10000)-2] > 0)):
-                if ((self.neurons[1].zarr[time] - self.neurons[1].zarr[time-1] > 0 and self.neurons[1].zarr[time-1] - self.neurons[1].zarr[time-2] < 0)
-                    or (self.neurons[1].zarr[time] - self.neurons[1].zarr[time-1] < 0 and self.neurons[1].zarr[time-1] - self.neurons[1].zarr[time-2] > 0)):
-                    # print("HI")
-                    # if (len(self.testarr) > 0 and self.t1 > 10000):
-                    #     dg = const * (np.abs(self.t1*c.scale - self.testarr[-1]*c.scale) + self.neurons[0].r)
-                    if (self.t2 > 10000):
-                        self.testarr2.append(self.t2)
-                    self.t2 = 0
-                else:
-                    self.t2 += 1
-            else:
-                self.t2 += 1
+                        self.warr.append(int(time*c.scale))
+                        self.t1 = 0
+                elif (self.neurons[0].zarr[(time)] - self.neurons[0].zarr[(time)-1] < 0):
+                    self.t1 += 1
+                # else:
+                #     self.t1 = 0
+            elif (self.neurons[0].zarr[(time)] - self.neurons[0].zarr[(time)-1] < 0):
+                self.t1 += 1
+            
+            # if ((temp2[int(time/10000)] - temp2[int(time/10000)-1] > 0 and temp2[int(time/10000)-1] - temp2[int(time/10000)-2] < 0)):
+            #     if ((self.neurons[1].zarr[time] - self.neurons[1].zarr[time-1] > 0 and self.neurons[1].zarr[time-1] - self.neurons[1].zarr[time-2] < 0)):
+            #         # print("HI")
+            #         # if (len(self.te) > 0 and self.t1 > 10000):
+            #         #     dg = -1 * const * ((self.t1*c.scale - self.testarr2[-1]*c.scale) + c.kappa)
+            #         if (self.t2 > 3000):
+            #             self.testarr2.append(self.t2)
+            #             self.warr2.append(int(time*c.scale))
+            #             self.t2 = 0
+            #     elif (self.neurons[1].zarr[(time)] - self.neurons[1].zarr[(time)-1] < 0):
+            #         self.t2 += 1
+            #     # else:
+            #     #     self.t1 = 0
+            # elif (self.neurons[1].zarr[(time)] - self.neurons[1].zarr[(time)-1] < 0):
+            #     self.t2 += 1
+            
+            # if ((temp1[int(time/10000)] - temp1[int(time/10000)-1] < 0 and temp1[int(time/10000)-1] - temp1[int(time/10000)-2] > 0)):
+            #     if ((self.neurons[0].zarr[time] - self.neurons[0].zarr[time-1] < 0 and self.neurons[0].zarr[time-1] - self.neurons[0].zarr[time-2] > 0)):
+            #         print("HI")
+            #         # if (len(self.testarr2) > 0 and self.t2 > 10000):
+            #         #     dg = -1 * const * ((self.t1*c.scale - self.testarr2[-1]*c.scale) + c.kappa)
+            #         self.testarr2.append(self.t2)
+            #         self.warr2.append(int(time*c.scale))
+            #         self.t2 = 0
+            #     else:
+            #         self.t2 += 1
+            # elif (self.neurons[0].zarr[(time)] - self.neurons[0].zarr[(time)-1] > 0):
+            #     self.t2 += 1
+                # else:
+                #     self.t1 = 0
+            
+            # elif (self.neurons[0].zarr[(time)] - self.neurons[0].zarr[(time)-1] > 0):
+            #     self.t2 += 1
+
+
+            # if ((temp2[int(time/10000)] - temp2[int(time/10000)-1] > 0 and temp2[int(time/10000)-1] - temp2[int(time/10000)-2] < 0)):
+            #     if ((self.neurons[1].zarr[time] - self.neurons[1].zarr[time-1] > 0 and self.neurons[1].zarr[time-1] - self.neurons[1].zarr[time-2] < 0)):
+            #         # print("HI")
+            #         # if (len(self.testarr) > 0 and self.t1 > 10000):
+            #         #     dg = const * (np.abs(self.t1*c.scale - self.testarr[-1]*c.scale) + self.neurons[0].r)
+            #         if (self.t2 > 10000):
+            #             self.testarr2.append(self.t2)
+            #             self.warr2.append(int(time*c.scale))
+            #         self.t2 = 0
+            #     elif (self.neurons[1].zarr[(time)] - self.neurons[1].zarr[(time)-1] < 0):
+            #         self.t2 += 1
+            #     # else:
+            #     #     self.t2 = 0
+            # elif (self.neurons[1].zarr[(time)] - self.neurons[1].zarr[(time)-1] < 0):
+            #     self.t2 += 1
             
             # if (temp2[int(time/10000)] - temp2[int(time/10000)-1] < 0):
                 # self.t2 +=10000
