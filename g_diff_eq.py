@@ -26,11 +26,11 @@ synapse_normal.attach_neurons(neuron3, neuron4)
 synapse_normal.attach_neurons(neuron4, neuron3)
 
 
-synapse.create_weight_mat(neuron1, [5.0])
+synapse.create_weight_mat(neuron1, [7.0])
 synapse.create_weight_mat(neuron2, [5.0])
 
 
-const = 0.1 #fast spiking 
+const = 0.16 #fast spiking 
 # const = 0.05
 
 for i in range(c.iterations):
@@ -42,6 +42,20 @@ for i in range(c.iterations):
     print(i, neuron1.weights[0])
 
 np.save("nonlinear.npy", np.array([neuron1.xarr, neuron2.xarr]))
+
+#ANALYZE INTERVAL TIMES
+interval1 = [x/1000 for x in synapse.everything1]
+interval2 = [x/1000 for x in synapse.everything2]
+
+avg2 = np.average(np.array(interval1))
+avg1 = np.average(np.array(interval2))
+
+ratio = avg1/avg2
+
+
+print(avg1)
+print(avg2)
+print("Ratio is", ratio)
 
 fig = plt.figure()
 ax1 = fig.add_subplot(221)
@@ -81,10 +95,10 @@ ax2.plot(neuron1.time_vec, neuron1.garr, linewidth=0.5, color="black")
 # ax2.plot(neuron1.time_vec, neuron4.xarr, linewidth=0.5, color=c.l_yellow)
 
 ax3.plot(neuron1.time_vec, neuron1.xarr, linewidth=0.5, color=c.l_blue)
-ax3.plot(synapse.swaps, a, "x")
+# ax3.plot(synapse.swaps, a, "x")
 
 ax4.plot(neuron2.time_vec, neuron2.xarr, linewidth=0.5, color=c.l_yellow)
-ax4.plot(synapse.time_arr2, b, "x")
+# ax4.plot(synapse.time_arr2, b, "x")
 # ax4.plot(neuron1.time_vec, neuron1.garr, linewidth=0.5, color=c.l_blue)
 
 
