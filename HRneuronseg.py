@@ -63,8 +63,8 @@ class HRneuronseg:
             self.connections.append(neuron)
     
     def update_g(self, time, dg):
-        self.g = self.g - dg
-        self.weights[0] = self.weights[0] - dg
+        self.g = self.g + dg
+        self.weights[0] = self.weights[0] + dg
         # print(self.g)
         self.garr[time] = self.g
 

@@ -30,14 +30,14 @@ synapse.create_weight_mat(neuron1, [5.0])
 synapse.create_weight_mat(neuron2, [5.0])
 
 
-const = 1.0 #fast spiking 
+const = 0.1 #fast spiking 
 # const = 0.05
 
 for i in range(c.iterations):
     synapse.calculate_weight_all(i)
     # synapse_normal.calculate_all(i)
 
-    synapse.update_new_dg2(i, const)
+    synapse.update_dg_peaks(i, const)
 
     print(i, neuron1.weights[0])
 
@@ -64,9 +64,15 @@ ax4 = fig.add_subplot(224)
 # f1 = f1/c.scale
 # f2 = f2/c.scale
 
-a = [3 for i in range(len(synapse.warr))]
-b = [3 for i in range(len(synapse.warr2))]
 
+a = [3 for i in range(len(synapse.swaps))]
+b = [3 for i in range(len(synapse.time_arr2))]
+
+for i in range(len(synapse.time_arr2)):
+    synapse.time_arr2[i] *= c.scale
+
+for i in range(len(synapse.swaps)):
+    synapse.swaps[i] *= c.scale
 
 ax1.plot(neuron1.time_vec, neuron1.xarr, linewidth=0.5, color=c.l_blue)
 ax1.plot(neuron1.time_vec, neuron2.xarr, linewidth=0.5, color=c.l_yellow)
@@ -75,10 +81,10 @@ ax2.plot(neuron1.time_vec, neuron1.garr, linewidth=0.5, color="black")
 # ax2.plot(neuron1.time_vec, neuron4.xarr, linewidth=0.5, color=c.l_yellow)
 
 ax3.plot(neuron1.time_vec, neuron1.xarr, linewidth=0.5, color=c.l_blue)
-ax3.plot(synapse.warr, a, "x")
+ax3.plot(synapse.swaps, a, "x")
 
 ax4.plot(neuron2.time_vec, neuron2.xarr, linewidth=0.5, color=c.l_yellow)
-ax4.plot(synapse.warr2, b, "x")
+ax4.plot(synapse.time_arr2, b, "x")
 # ax4.plot(neuron1.time_vec, neuron1.garr, linewidth=0.5, color=c.l_blue)
 
 
@@ -97,11 +103,11 @@ ax1.set_ylabel("membrane potential (au)", fontsize=8)
 ax2.set_title("Modulation Value")
 ax2.set_xlabel("time (ms)", fontsize=8)
 ax2.set_ylabel("m (au)", fontsize=8)
-ax3.set_title("Neuron 1, I = 7.0", fontsize=8)
+ax3.set_title("Neuron 1, I = 7.0, x = swap", fontsize=8)
 ax3.set_xlabel("Time (ms)", fontsize=8)
 ax3.set_ylabel("membrane potential (au)", fontsize=8)
 
-ax4.set_title("Neuron 2, I = 4.0", fontsize=8)
+ax4.set_title("Neuron 2, I = 4.0, x = firing", fontsize=8)
 ax4.set_xlabel("time (ms)", fontsize=8)
 ax4.set_ylabel("membrane potential (au)", fontsize=8)
 
