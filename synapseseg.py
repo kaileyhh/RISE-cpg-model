@@ -158,7 +158,7 @@ class synapseseg:
                     if (len(self.swaps) >= 3):
                         self.everything1.append(self.swaps[-1] - self.swaps[-2])
                         self.everything2.append(self.swaps[-2] - self.swaps[-3])
-                        dg = -1 * const * (((self.everything1[-1] - self.everything2[-1])*c.scale) + c.kappa)
+                        dg =  (np.exp(-1 *const* (((self.everything1[-1] - self.everything2[-1])*c.scale))) - np.exp(c.kappa* const))
             
             self.peaks_arr.append(1)
 
