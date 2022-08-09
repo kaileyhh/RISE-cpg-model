@@ -1,10 +1,10 @@
 from imports import *
 
 # plt.figure()
-# plt.title("Bifurcation of Membrane Potentials (Poincare section at y = -2.5)")
-# plt.ylabel("membrane potential")
-# plt.xlabel("injected current")
-# plt.savefig("Bifurcation_clear.png", dpi=300)
+# plt.title("Phase Portrait at I = 3.15 (Poincare section at y = -2.5)")
+# plt.ylabel("ion transport rate",fontsize=12)
+# plt.xlabel("membrane potential",fontsize=12)
+# plt.savefig("helper.png", dpi=300)
 # plt.show()
 
 fig = plt.figure()
