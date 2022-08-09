@@ -117,11 +117,11 @@ ax1.set_ylabel("membrane potential (au)", fontsize=8)
 ax2.set_title("Modulation Value")
 ax2.set_xlabel("time (ms)", fontsize=8)
 ax2.set_ylabel("m (au)", fontsize=8)
-ax3.set_title("Neuron 1, I = 7.0, x = swap", fontsize=8)
+ax3.set_title("Neuron 1, I = 7.0", fontsize=8)
 ax3.set_xlabel("Time (ms)", fontsize=8)
 ax3.set_ylabel("membrane potential (au)", fontsize=8)
 
-ax4.set_title("Neuron 2, I = 4.0, x = firing", fontsize=8)
+ax4.set_title("Neuron 2, I = 4.0", fontsize=8)
 ax4.set_xlabel("time (ms)", fontsize=8)
 ax4.set_ylabel("membrane potential (au)", fontsize=8)
 

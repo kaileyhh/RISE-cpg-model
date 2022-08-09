@@ -9,9 +9,9 @@ pre_botc = HRneuronseg(1)
 pico = HRneuronseg(2)
 rtn = HRneuronseg(3)
 
-pre_botc.set_current(5.0)
-pico.set_current(4.0)
-rtn.set_current(4.0)
+pre_botc.set_current(3.55)
+pico.set_current(3.5)
+rtn.set_current(3.45)
 
 # pico.set_current(2.5)
 # rtn.set_current(2.0)
@@ -34,7 +34,7 @@ for i in range(c.iterations):
     print(i)
 
 a = [pre_botc.xarr, pico.xarr, rtn.xarr]
-np.save("cpg.npy", a)
+# np.save("cpg.npy", a)
 
 fig = plt.figure()
 ax1 = fig.add_subplot(221)
@@ -64,7 +64,7 @@ ax4.set_xlabel("Time (ms)", fontsize=8)
 ax4.set_ylabel("Membrane Potential (au)", fontsize=8)
 
 # plt.rc('figure', titlesize=8) 
-fig.suptitle("CPG Neurons (Pre- BotC I = " + str(pre_botc.current) + ", others I = 4.0; baseline)")
+fig.suptitle("CPG Neurons (Pre-BotC I = " + str(pre_botc.current) + " PiCo I = " + str(pico.current) + " RTN/pFRG I = " + str(rtn.current) +")")
 
 plt.subplots_adjust(left=0.1,
                     bottom=0.1, 
@@ -73,6 +73,6 @@ plt.subplots_adjust(left=0.1,
                     wspace=0.4, 
                     hspace=0.4)
 
-plt.savefig("cpg.png", dpi=300)
+plt.savefig("tonic_cpg.png", dpi=300)
 
 plt.show()

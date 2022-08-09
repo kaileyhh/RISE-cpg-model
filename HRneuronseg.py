@@ -67,6 +67,12 @@ class HRneuronseg:
         self.weights[0] = self.weights[0] + dg
         # print(self.g)
         self.garr[time] = self.g
+    
+    def update_gx(self, time, dg):
+        self.g = self.g + dg
+        self.weights[1] = self.weights[1] + dg
+        # print(self.g)
+        self.garr[time] = self.g
 
     def set_current(self, current):
         c.set_current(current)

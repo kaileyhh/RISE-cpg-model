@@ -45,7 +45,8 @@ class constants:
         self.l_blue = "#017079"
         self.l_yellow = "#FFC303"
 
-        self.kappa = 0
+        self.kappa = 0.0
+        self.kappax = 0.0
 
         self.inhib = -1.0
 

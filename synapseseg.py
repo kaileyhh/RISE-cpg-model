@@ -27,6 +27,17 @@ class synapseseg:
         
         self.swaps = []
 
+        self.peaks_arrx = []
+        self.time_arrx = []
+
+        self.time_arr1x = []
+        self.time_arr2x = []
+
+        self.everything1x = []
+        self.everything2x = []
+        
+        self.swapsx = []
+
         for neuron in self.neurons:
             self.neuron_dict.update({str(neuron.id): neuron})
     
@@ -134,31 +145,27 @@ class synapseseg:
     
     def update_dg_peaks(self, time, const):
         dg = 0
-        # print(len(self.peaks_arr), len(self.time_arr))
         print(self.everything1)
         print(self.everything2)
         
 
         peak = self.calculate_if_peak(self.neurons[0], time)
-        anti_peak = self.calculate_if_anti_peak(self.neurons[0], time)
+        # anti_peak = self.calculate_if_anti_peak(self.neurons[0], time)
+        anti_peak = self.calculate_if_peak(self.neurons[1], time)
+
         if (peak and time > 20000):
-            
-            # if (len(self.time_arr2) > 0):
-            #     self.time_arr.append(time - self.time_arr2[-1])
-            # else:
-            #     self.time_arr.append(time)
-            
+
             self.time_arr.append(time)
             self.time_arr1.append(time)
 
             if (len(self.peaks_arr) > 0):
                 if (self.peaks_arr[-1] == -1):
                     self.swaps.append(time)
-                    # self.everything1.append(self.time_arr1[-1] - self.time_arr2[-1])
+
                     if (len(self.swaps) >= 3):
                         self.everything1.append(self.swaps[-1] - self.swaps[-2])
                         self.everything2.append(self.swaps[-2] - self.swaps[-3])
-                        dg =  (np.exp(-1 *const* (((self.everything1[-1] - self.everything2[-1])*c.scale))) - np.exp(c.kappa* const))
+                        dg = (np.exp(-1 *const* (((self.everything1[-1] - self.everything2[-1])*c.scale))) - np.exp(c.kappa* const))
             
             self.peaks_arr.append(1)
 
@@ -169,17 +176,46 @@ class synapseseg:
             if (len(self.peaks_arr) > 0):
                 if (self.peaks_arr[-1] == 1):
                     self.swaps.append(time)
-                    # if (len(self.swaps) >= 2):
-                    #     self.everything2.append(self.swaps[-1] - self.swaps[-2])
-                    
-            self.peaks_arr.append(-1)
 
-            # if (len(self.time_arr1) > 0):
-            #     self.time_arr.append(time - self.time_arr1[-1])
-            # else:
-            #     self.time_arr.append(time)
-            
+            self.peaks_arr.append(-1)
         self.neurons[0].update_g(time, dg)
+    
+    def update_dg_peaks2(self, time, const):
+        dg = 0
+        print(self.everything1x)
+        print(self.everything2x)
+        
+
+        peak = self.calculate_if_peak(self.neurons[2], time)
+        # anti_peak = self.calculate_if_anti_peak(self.neurons[0], time)
+        anti_peak = self.calculate_if_peak(self.neurons[1], time)
+
+        if (peak and time > 20000):
+
+            self.time_arrx.append(time)
+            self.time_arr1x.append(time)
+
+            if (len(self.peaks_arrx) > 0):
+                if (self.peaks_arrx[-1] == -1):
+                    self.swapsx.append(time)
+
+                    if (len(self.swapsx) >= 3):
+                        self.everything1x.append(self.swapsx[-1] - self.swapsx[-2])
+                        self.everything2x.append(self.swapsx[-2] - self.swapsx[-3])
+                        dg = (np.exp(-1 *const* (((self.everything1x[-1] - self.everything2x[-1])*c.scale))) - np.exp(c.kappax * const))
+            
+            self.peaks_arrx.append(1)
+
+        if (anti_peak and time > 20000):
+            self.time_arrx.append(time)
+            self.time_arr2x.append(time)
+        
+            if (len(self.peaks_arrx) > 0):
+                if (self.peaks_arrx[-1] == 1):
+                    self.swapsx.append(time)
+
+            self.peaks_arrx.append(-1)
+        self.neurons[2].update_gx(time, dg)
 
     def update_new_dg2(self, time, const):
         temp1 = []
