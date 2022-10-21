@@ -84,24 +84,26 @@ ax1.set_ylabel("modulation value (au)", fontsize=8)
 ax2.set_title("PiCo, [Pre-BotC = 5.0, RTN/pFRG = 2.5]", fontsize=8)
 ax2.set_xlabel("Time (ms)", fontsize=8)
 ax2.set_ylabel("au", fontsize=8)
-ax3.set_title("Pre-BotC, [PiCo = 5.2, RTN/pFRG = 2.7], RTN/pFRG [Pre-Botc = 4.1, PiCo = 2.0]", fontsize=6)
+ax3.set_title(
+    "Pre-BotC, [PiCo = 5.2, RTN/pFRG = 2.7], RTN/pFRG [Pre-Botc = 4.1, PiCo = 2.0]", fontsize=6)
 ax3.set_xlabel("Time (ms)", fontsize=8)
 ax3.set_ylabel("Membrane Potential (au)", fontsize=8)
 ax4.set_title("All Complexes Together", fontsize=8)
 ax4.set_xlabel("Time (ms)", fontsize=8)
 ax4.set_ylabel("Membrane Potential (au)", fontsize=8)
 
-# plt.rc('figure', titlesize=8) 
+# plt.rc('figure', titlesize=8)
 # fig.suptitle("CPG Neurons (Pre-BotC I = " + str(pre_botc.current) + " PiCo I = " + str(pico.current) + " RTN/pFRG I = " + str(rtn.current) +")")
 
-# plt.rc('figure', titlesize=8) 
-fig.suptitle("CPG With Nonlinear Conductance Decay, c = " + str(const), fontsize=8)
+# plt.rc('figure', titlesize=8)
+fig.suptitle("CPG With Nonlinear Conductance Decay, c = " +
+             str(const), fontsize=8)
 
 plt.subplots_adjust(left=0.1,
-                    bottom=0.1, 
-                    right=0.9, 
-                    top=0.9, 
-                    wspace=0.4, 
+                    bottom=0.1,
+                    right=0.9,
+                    top=0.9,
+                    wspace=0.4,
                     hspace=0.4)
 
 plt.savefig("nonlinear_g.png", dpi=300)

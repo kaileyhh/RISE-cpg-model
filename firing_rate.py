@@ -3,7 +3,7 @@ from HRneuron import *
 
 c = constants()
 
-neuron1 = HRneuron(1) 
+neuron1 = HRneuron(1)
 time_vec = np.arange(0, c.ms, c.scale)
 current_vec = np.zeros(c.iterations) + c.I
 # print(time_vec[20])
@@ -24,7 +24,7 @@ current_vec = np.zeros(c.iterations) + c.I
 # plt.plot(peaks, pot[peaks], "x")
 # plt.show()
 
-#forward euler time :D
+# forward euler time :D
 
 # --------- VARYING I ---------
 
@@ -39,12 +39,13 @@ for j in range(3000, 3300):
 
     pot = neuron1.xarr
 
-    peaks, other = find_peaks(pot, height=c.MIN_HEIGHT, threshold = 0, distance=c.MIN_DISTANCE, width=c.MIN_WIDTH)
+    peaks, other = find_peaks(
+        pot, height=c.MIN_HEIGHT, threshold=0, distance=c.MIN_DISTANCE, width=c.MIN_WIDTH)
     firing_rate.append(len(peaks) / (c.ms))
     if len(peaks) != 0:
-        interspike_interval.append(c.ms/ len(peaks))
+        interspike_interval.append(c.ms / len(peaks))
     else:
-        interspike_interval.append(0) 
+        interspike_interval.append(0)
     print(j*0.001)
 
 firing_vec = np.arange(3, 3.3, 0.001)
@@ -53,7 +54,7 @@ firing_vec = np.arange(3, 3.3, 0.001)
 
 # np.save("firing_rate.npy", firing_rate)
 
-plt.plot(firing_vec, firing_rate, linewidth = 1, color="black")
+plt.plot(firing_vec, firing_rate, linewidth=1, color="black")
 plt.xlabel("Injected Current")
 plt.ylabel("Firing Rate (peaks / ms)")
 plt.title("Firing Rate Based on Current")

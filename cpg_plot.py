@@ -44,14 +44,14 @@ ax4.set_title("All Complexes Together", fontsize=8)
 ax4.set_xlabel("Time (ms)", fontsize=8)
 ax4.set_ylabel("Membrane Potential (au)", fontsize=8)
 
-# plt.rc('figure', titlesize=8) 
+# plt.rc('figure', titlesize=8)
 fig.suptitle("CPG Neuron Complex Simulation, I = 3.15")
 
 plt.subplots_adjust(left=0.1,
-                    bottom=0.1, 
-                    right=0.9, 
-                    top=0.9, 
-                    wspace=0.4, 
+                    bottom=0.1,
+                    right=0.9,
+                    top=0.9,
+                    wspace=0.4,
                     hspace=0.4)
 
 plt.savefig("cpg.png", dpi=300)

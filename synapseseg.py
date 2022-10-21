@@ -3,6 +3,7 @@ from HRneuronseg import *
 
 c = constants()
 
+
 class synapseseg:
     def __init__(self, neurons_list):
         self.neurons = neurons_list
@@ -24,7 +25,7 @@ class synapseseg:
 
         self.everything1 = []
         self.everything2 = []
-        
+
         self.swaps = []
 
         self.peaks_arrx = []
@@ -35,46 +36,49 @@ class synapseseg:
 
         self.everything1x = []
         self.everything2x = []
-        
+
         self.swapsx = []
 
         for neuron in self.neurons:
             self.neuron_dict.update({str(neuron.id): neuron})
-    
+
     def add_neuron(self, neuron):
         if neuron not in self.neurons:
             self.neurons.append(neuron)
             self.neuron_dict.update({str(neuron.id): neuron})
-    
+
     def attach_neurons(self, neuron, neuron_att):
         neuron.add_connections(neuron_att.id)
-    
+
     def get_neuron(self, id):
         return (self.neuron_dict.get(str(id)))
-    
+
     def calculate_x(self, neuron, time):
         connections = neuron.get_connections()
         dx = neuron.calculate_init_dx()
         if (len(connections) > 0):
             for i in connections:
-                dx -= neuron.g * (neuron.x - neuron.v_syn) * self.get_neuron(i).sigmoid
+                dx -= neuron.g * (neuron.x - neuron.v_syn) * \
+                    self.get_neuron(i).sigmoid
         neuron.update_x(time, dx)
-    
+
     def calculate_max_x(self, neuron, time):
         connections = neuron.get_connections()
         dx = neuron.calculate_init_dx()
         if (len(connections) > 0):
             for i in connections:
-                dx -= neuron.g * (neuron.x - neuron.v_syn) * self.get_neuron(i).sigmoid
+                dx -= neuron.g * (neuron.x - neuron.v_syn) * \
+                    self.get_neuron(i).sigmoid
         neuron.update_x(time, dx)
-    
+
     def calculate_sensory_x(self, neuron, time, gain, sensory, weight):
         # - weight = excitatory, +weight = inhibitory
         connections = neuron.get_connections()
         dx = neuron.calculate_sensory_dx(gain, sensory)
         if (len(connections) > 0):
             for i in connections:
-                dx -= weight * (neuron.x - neuron.v_syn) * self.get_neuron(i).sigmoid
+                dx -= weight * (neuron.x - neuron.v_syn) * \
+                    self.get_neuron(i).sigmoid
         neuron.update_x(time, dx)
 
     def calculate_weight_x(self, neuron, time):
@@ -82,24 +86,24 @@ class synapseseg:
         dx = neuron.calculate_init_dx()
         if (len(connections) > 0):
             for i in range(len(connections)):
-                dx -= neuron.weights[i] * (neuron.x - neuron.v_syn) * self.get_neuron(connections[i]).sigmoid
+                dx -= neuron.weights[i] * (neuron.x - neuron.v_syn) * \
+                    self.get_neuron(connections[i]).sigmoid
         neuron.update_x(time, dx)
 
-    
     def calculate_all(self, time):
         for neuron in self.neurons:
             self.calculate_x(neuron, time)
             neuron.calculate_y(time)
             neuron.calculate_z(time)
             neuron.sig_func(time)
-    
+
     def calculate_max_all(self, time):
         for neuron in self.neurons:
             self.calculate_x(neuron, time)
             neuron.calculate_y(time)
             neuron.calculate_z(time)
             neuron.max_sig_func(time)
-    
+
     def calculate_sensory_all(self, time, gain, sensory, id):
         for neuron in self.neurons:
             if (neuron.id == id):
@@ -109,7 +113,7 @@ class synapseseg:
             neuron.calculate_y(time)
             neuron.calculate_z(time)
             neuron.sig_func(time)
-    
+
     def create_weight_mat(self, neuron, weight_list):
         neuron.update_weights(weight_list)
 
@@ -119,7 +123,7 @@ class synapseseg:
             neuron.calculate_y(time)
             neuron.calculate_z(time)
             neuron.sig_func(time)
-    
+
     def update_dg(self, time, const):
         dg = const * np.abs(self.neurons[0].current - self.neurons[1].current)
         for neuron in self.neurons:
@@ -133,7 +137,7 @@ class synapseseg:
         if (neg_deriv and pos_deriv and neuron.xarr[time] > 1):
             return True
         return False
-    
+
     def calculate_if_anti_peak(self, neuron, time):
         if (time < 2):
             return False
@@ -142,12 +146,11 @@ class synapseseg:
         if (neg_deriv and pos_deriv and neuron.xarr[time] < 0):
             return True
         return False
-    
+
     def update_dg_peaks(self, time, const):
         dg = 0
         print(self.everything1)
         print(self.everything2)
-        
 
         peak = self.calculate_if_peak(self.neurons[0], time)
         # anti_peak = self.calculate_if_anti_peak(self.neurons[0], time)
@@ -163,28 +166,30 @@ class synapseseg:
                     self.swaps.append(time)
 
                     if (len(self.swaps) >= 3):
-                        self.everything1.append(self.swaps[-1] - self.swaps[-2])
-                        self.everything2.append(self.swaps[-2] - self.swaps[-3])
-                        dg = (np.exp(-1 *const* (((self.everything1[-1] - self.everything2[-1])*c.scale))) - np.exp(c.kappa* const))
-            
+                        self.everything1.append(
+                            self.swaps[-1] - self.swaps[-2])
+                        self.everything2.append(
+                            self.swaps[-2] - self.swaps[-3])
+                        dg = (
+                            np.exp(-1 * const * (((self.everything1[-1] - self.everything2[-1])*c.scale))) - np.exp(c.kappa * const))
+
             self.peaks_arr.append(1)
 
         if (anti_peak and time > 20000):
             self.time_arr.append(time)
             self.time_arr2.append(time)
-        
+
             if (len(self.peaks_arr) > 0):
                 if (self.peaks_arr[-1] == 1):
                     self.swaps.append(time)
 
             self.peaks_arr.append(-1)
         self.neurons[0].update_g(time, dg)
-    
+
     def update_dg_peaks2(self, time, const):
         dg = 0
         print(self.everything1x)
         print(self.everything2x)
-        
 
         peak = self.calculate_if_peak(self.neurons[2], time)
         # anti_peak = self.calculate_if_anti_peak(self.neurons[0], time)
@@ -200,16 +205,19 @@ class synapseseg:
                     self.swapsx.append(time)
 
                     if (len(self.swapsx) >= 3):
-                        self.everything1x.append(self.swapsx[-1] - self.swapsx[-2])
-                        self.everything2x.append(self.swapsx[-2] - self.swapsx[-3])
-                        dg = (np.exp(-1 *const* (((self.everything1x[-1] - self.everything2x[-1])*c.scale))) - np.exp(c.kappax * const))
-            
+                        self.everything1x.append(
+                            self.swapsx[-1] - self.swapsx[-2])
+                        self.everything2x.append(
+                            self.swapsx[-2] - self.swapsx[-3])
+                        dg = (
+                            np.exp(-1 * const * (((self.everything1x[-1] - self.everything2x[-1])*c.scale))) - np.exp(c.kappax * const))
+
             self.peaks_arrx.append(1)
 
         if (anti_peak and time > 20000):
             self.time_arrx.append(time)
             self.time_arr2x.append(time)
-        
+
             if (len(self.peaks_arrx) > 0):
                 if (self.peaks_arrx[-1] == 1):
                     self.swapsx.append(time)
@@ -225,9 +233,9 @@ class synapseseg:
 
         for i in range(int(len(self.neurons[1].zarr)/10000)):
             temp2.append(self.neurons[1].zarr[10000 * i])
-        
+
         dg = 0
-        #temp1[int(time/10000)] - temp1[int(time/10000)-1], temp1[int(time/10000)-1] - temp1[int(time/10000)-2], 
+        #temp1[int(time/10000)] - temp1[int(time/10000)-1], temp1[int(time/10000)-1] - temp1[int(time/10000)-2],
         print(self.testarr, self.warr)
         print(self.testarr2, self.warr2)
         if (True):
@@ -238,8 +246,11 @@ class synapseseg:
                     # print("HI")
                     if (self.t1 > 10000 and len(self.warr) > 0):
                         # dg = -1 * const * ((self.t1*c.scale - self.testarr2[-1]*c.scale) + c.kappa)
-                        dg = -1 * const * ((self.t1*c.scale - (time - self.warr[-1]/c.scale - self.t1)*c.scale) + c.kappa)
-                        self.testarr2.append(time - self.warr[-1]/c.scale - self.t1)
+                        dg = -1 * const * \
+                            ((self.t1*c.scale - (time -
+                             self.warr[-1]/c.scale - self.t1)*c.scale) + c.kappa)
+                        self.testarr2.append(
+                            time - self.warr[-1]/c.scale - self.t1)
                     if (self.t1 > 10000):
                         self.testarr.append(self.t1)
 
@@ -251,7 +262,7 @@ class synapseseg:
                 #     self.t1 = 0
             elif (self.neurons[0].zarr[(time)] - self.neurons[0].zarr[(time)-1] < 0):
                 self.t1 += 1
-            
+
             # if ((temp2[int(time/10000)] - temp2[int(time/10000)-1] > 0 and temp2[int(time/10000)-1] - temp2[int(time/10000)-2] < 0)):
             #     if ((self.neurons[1].zarr[time] - self.neurons[1].zarr[time-1] > 0 and self.neurons[1].zarr[time-1] - self.neurons[1].zarr[time-2] < 0)):
             #         # print("HI")
@@ -267,7 +278,7 @@ class synapseseg:
             #     #     self.t1 = 0
             # elif (self.neurons[1].zarr[(time)] - self.neurons[1].zarr[(time)-1] < 0):
             #     self.t2 += 1
-            
+
             # if ((temp1[int(time/10000)] - temp1[int(time/10000)-1] < 0 and temp1[int(time/10000)-1] - temp1[int(time/10000)-2] > 0)):
             #     if ((self.neurons[0].zarr[time] - self.neurons[0].zarr[time-1] < 0 and self.neurons[0].zarr[time-1] - self.neurons[0].zarr[time-2] > 0)):
             #         print("HI")
@@ -282,10 +293,9 @@ class synapseseg:
             #     self.t2 += 1
                 # else:
                 #     self.t1 = 0
-            
+
             # elif (self.neurons[0].zarr[(time)] - self.neurons[0].zarr[(time)-1] > 0):
             #     self.t2 += 1
-
 
             # if ((temp2[int(time/10000)] - temp2[int(time/10000)-1] > 0 and temp2[int(time/10000)-1] - temp2[int(time/10000)-2] < 0)):
             #     if ((self.neurons[1].zarr[time] - self.neurons[1].zarr[time-1] > 0 and self.neurons[1].zarr[time-1] - self.neurons[1].zarr[time-2] < 0)):
@@ -302,7 +312,7 @@ class synapseseg:
             #     #     self.t2 = 0
             # elif (self.neurons[1].zarr[(time)] - self.neurons[1].zarr[(time)-1] < 0):
             #     self.t2 += 1
-            
+
             # if (temp2[int(time/10000)] - temp2[int(time/10000)-1] < 0):
                 # self.t2 +=10000
             # if ((temp2[int(time/10000)] - temp2[int(time/10000)-1] > 0 and temp2[int(time/10000)-1] - temp2[int(time/10000)-2] < 0)
@@ -316,25 +326,25 @@ class synapseseg:
         self.neurons[0].update_tarr(time, self.t1*c.scale)
         self.neurons[1].update_tarr(time, self.t2*c.scale)
         # print (self.neurons[0].weights[0])
-        
-    
+
     def update_new_dg(self, time, const):
         dg = 0
         if (self.neurons[0].x < c.inhib):
-            self.t1+=1
+            self.t1 += 1
         elif(self.neurons[0].xarr[time] > c.inhib and self.neurons[0].xarr[time-1] < c.inhib):
             self.t1 = 0
-            dg = const * ((self.t1*c.scale - self.t2*c.scale) + self.neurons[0].r)
-        
+            dg = const * ((self.t1*c.scale - self.t2 *
+                          c.scale) + self.neurons[0].r)
+
         if (self.neurons[1].x < c.inhib):
-            self.t2+=1
+            self.t2 += 1
         elif(self.neurons[1].xarr[time] > c.inhib and self.neurons[1].xarr[time-1] < c.inhib):
             self.t2 = 0
-            dg = const * (np.abs(self.t1*c.scale - self.t2*c.scale) + self.neurons[0].r)
+            dg = const * (np.abs(self.t1*c.scale - self.t2 *
+                          c.scale) + self.neurons[0].r)
         # for neuron in self.neurons:
         #     neuron.update_g(time, dg)
         self.neurons[0].update_g(time, dg)
         self.neurons[0].update_tarr(time, self.t1*c.scale)
         self.neurons[1].update_tarr(time, self.t2*c.scale)
-        print (self.neurons[0].weights[0])
-
+        print(self.neurons[0].weights[0])

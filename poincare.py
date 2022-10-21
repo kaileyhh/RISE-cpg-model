@@ -9,7 +9,8 @@ print(len(xarr))
 plot_array = []
 
 for i in range(len(xarr)):
-    plot_array.append(xarr[i][np.where(np.logical_and(yarr[i] < -2.4999, yarr[i] > -2.5001))])
+    plot_array.append(
+        xarr[i][np.where(np.logical_and(yarr[i] < -2.4999, yarr[i] > -2.5001))])
 
 # print(plot_array)
 

@@ -1,14 +1,14 @@
-#hr coupled duplicate to map x vs y
+# hr coupled duplicate to map x vs y
 from imports import *
 from HRneuron import *
-from synapse import *
+# from "old_scripts/synapse" import *
 
 # insert main code here :D
 
 c = constants()
 thiscurr = input("input current: ")
 
-neuron1 = HRneuron(1) 
+neuron1 = HRneuron(1)
 neuron1.set_current(float(thiscurr))
 c.set_current(float(thiscurr))
 time_vec = np.arange(0, c.ms, c.scale)
@@ -19,17 +19,17 @@ current_vec = np.zeros(c.iterations) + c.I
 # print(neuron1.current)
 
 
-#forward euler time :D
+# forward euler time :D
 
 for i in range(c.iterations):
     neuron1.calculate_x(i)
     neuron1.calculate_y(i)
     neuron1.calculate_z(i)
 
-#removing first data points in x and y
+# removing first data points in x and y
 xshort = [0.0]*(len(neuron1.xarr)-2500)
 yshort = [0.0]*(len(neuron1.yarr)-2500)
-for i in range (2500,len(neuron1.xarr)):
+for i in range(2500, len(neuron1.xarr)):
     xshort[i-2500] = neuron1.xarr[i]
     yshort[i-2500] = neuron1.yarr[i]
 
@@ -40,9 +40,6 @@ ax1.set_xlabel("current")
 ax1.set_ylabel("ion transport rate")
 ax1.plot(xshort, yshort)
 #ax1.scatter(xshort, yshort,s=10)
-
-
-
 
 
 if (c.I < 1.2):
@@ -97,10 +94,10 @@ plt.show()
 
 
 # plt.subplots_adjust(left=0.1,
-#                     bottom=0.1, 
-#                     right=0.9, 
-#                     top=0.9, 
-#                     wspace=0.4, 
+#                     bottom=0.1,
+#                     right=0.9,
+#                     top=0.9,
+#                     wspace=0.4,
 #                     hspace=0.4)
 
 # plt.show()

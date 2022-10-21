@@ -30,7 +30,7 @@ synapse.create_weight_mat(neuron1, [7.0])
 synapse.create_weight_mat(neuron2, [5.0])
 
 
-const = 0.16 #fast spiking 
+const = 0.16  # fast spiking
 # const = 0.05
 
 for i in range(c.iterations):
@@ -43,7 +43,7 @@ for i in range(c.iterations):
 
 np.save("nonlinear.npy", np.array([neuron1.xarr, neuron2.xarr]))
 
-#ANALYZE INTERVAL TIMES
+# ANALYZE INTERVAL TIMES
 interval1 = [x/1000 for x in synapse.everything1]
 interval2 = [x/1000 for x in synapse.everything2]
 
@@ -125,14 +125,15 @@ ax4.set_title("Neuron 2, I = 4.0", fontsize=8)
 ax4.set_xlabel("time (ms)", fontsize=8)
 ax4.set_ylabel("membrane potential (au)", fontsize=8)
 
-# plt.rc('figure', titlesize=8) 
-fig.suptitle("Coupled HR Neurons With Nonlinear Conductance Decay, c = " + str(const), fontsize=8)
+# plt.rc('figure', titlesize=8)
+fig.suptitle(
+    "Coupled HR Neurons With Nonlinear Conductance Decay, c = " + str(const), fontsize=8)
 
 plt.subplots_adjust(left=0.1,
-                    bottom=0.1, 
-                    right=0.9, 
-                    top=0.9, 
-                    wspace=0.4, 
+                    bottom=0.1,
+                    right=0.9,
+                    top=0.9,
+                    wspace=0.4,
                     hspace=0.4)
 
 plt.savefig("nonlinear_g.png", dpi=300)

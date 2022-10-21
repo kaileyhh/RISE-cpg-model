@@ -7,6 +7,7 @@ from scipy.io.wavfile import read
 from scipy.signal import find_peaks
 import imageio
 
+
 class constants:
     def __init__(self):
         self.EXAMPLE_CONSTANT = 0
@@ -23,7 +24,7 @@ class constants:
         self.r = 0.006
         self.s = 4.0
         self.xR = -1.6
-        self.scale = 0.001 #scale is the same thing as dt
+        self.scale = 0.001  # scale is the same thing as dt
         self.ms = 800
         self.iterations = self.ms * 1000
 
@@ -40,7 +41,7 @@ class constants:
 
         self.phi = 0.0
         self.v_syn = -2.0
-        self.g = 5.0 #coupling strength
+        self.g = 5.0  # coupling strength
 
         self.l_blue = "#017079"
         self.l_yellow = "#FFC303"
@@ -52,13 +53,13 @@ class constants:
 
     def set_current(self, current):
         self.I = current
-    
+
     def set_a(self, a):
         self.a = a
-    
+
     def set_conductance(self, conductance):
         self.g = conductance
-    
+
     def clamp(self, input, min, max):
         if (input < min):
             return min

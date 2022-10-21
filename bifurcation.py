@@ -5,7 +5,7 @@ from HRneuron import *
 c = constants()
 neuron1 = HRneuron(1)
 
-currents = np.arange(0,4.0,0.002)
+currents = np.arange(0, 4.0, 0.002)
 
 # y = []
 # for current in currents:
@@ -23,7 +23,7 @@ currents = np.arange(0,4.0,0.002)
 #     for k in range(len(peaks)-1):
 #         time = (peaks[k+1]-peaks[k]) * c.scale
 #         timeintervals.append(time)
-    
+
 
 #     y.append(timeintervals)
 
@@ -33,12 +33,11 @@ y = np.load("y.npy", allow_pickle=True)
 
 for l in range(len(currents)):
     for m in range(len(y[l])):
-        plt.scatter(currents[l],y[l][m], s = 0.5, color = 'black')
+        plt.scatter(currents[l], y[l][m], s=0.5, color='black')
 
 plt.title("Bifurcation of Interspike Intervals")
 plt.ylabel("interspike intervals")
 plt.xlabel("injected current")
 plt.savefig("Bifurcation_clear.png", dpi=300)
 plt.show()
-#print(y)
-
+# print(y)

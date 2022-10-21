@@ -22,8 +22,8 @@ plt.ylabel("phase change (ms)")
 plt.title("Phase Change based on Stimulus Timing")
 
 # for i in range(len(a))
-    # plt.savefig("figs/"+str(i)+".png")
-    # arr += ["figs/"+str(i)+".png"]
+# plt.savefig("figs/"+str(i)+".png")
+# arr += ["figs/"+str(i)+".png"]
 
 plt.savefig("phase_change_scatter.png", dpi=300)
 plt.show()

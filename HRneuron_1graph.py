@@ -6,14 +6,13 @@ from HRneuron import *
 
 c = constants()
 
-neuron1 = HRneuron(1) 
+neuron1 = HRneuron(1)
 time_vec = np.arange(0, c.ms, c.scale)
 current_vec = np.zeros(c.iterations) + c.I
 # print(time_vec[20])
 
 
-
-#forward euler time :D
+# forward euler time :D
 
 for i in range(c.iterations):
     neuron1.calculate_x(i)
@@ -43,4 +42,3 @@ else:
 plt.savefig("aperiodic_black.png", dpi=300)
 
 plt.show()
-
